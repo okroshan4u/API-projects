@@ -1,0 +1,24 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: red;
+}
+.container input{
+    padding: 10px;
+    border: none;
+    margin-right: 5px;
+}
+.container button{
+    padding: 10px;
+    text-transform: capitalize;
+    border: none;
+    background-color: black;
+    color: white;
+}
