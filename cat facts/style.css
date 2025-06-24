@@ -4,3 +4,15 @@
     box-sizing: border-box;
     font-family: "Gilroy";
 }
+body {
+    background-color: rgb(202, 160, 243);
+}
+
+.container_main {
+    display: flex;
+    flex-direction: column;
+    top: 30%;
+    position: absolute;
+    align-items: center;
+    width: 100vw;
+}
