@@ -1,0 +1,45 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Gilroy";
+}
+
+body {
+    background-color: #88958d;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100vw;
+    position: absolute;
+    top: 30%;
+    gap: 10px;
+    text-transform: capitalize;
+}
+
+.btn {
+    padding: 7px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #000000;
+    color: white;
+    text-transform: capitalize;
+}
+
+.container {
+    padding: 10px;
+    border: 1px solid rgb(137, 92, 92);
+    border-radius: 5px;
+    background-color: white;
+    width: 355px;
+    text-transform: capitalize;
+
+    p {
+        margin: 5px 0;
+        ;
+    }
+}
