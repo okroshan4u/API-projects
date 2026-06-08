@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>📈 Stock Price Checker</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      max-width: 700px;
+      margin: auto;
+    }
+    label, select {
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+    #stockChart {
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>📊 Select a Stock to View Price Chart</h2>
+
+  <label for="stocks">Choose a stock:</label>
+  <select name="stocks" id="stocks">
+    <option value="AAPL">AAPL (Apple Inc.)</option>
+    <option value="MSFT">MSFT (Microsoft Corporation)</option>
+    <option value="GOOGL">GOOGL (Alphabet Inc.)</option>
+    <option value="AMZN">AMZN (Amazon.com Inc.)</option>
+    <option value="TSLA">TSLA (Tesla Inc.)</option>
+    <option value="META">META (Meta Platforms Inc.)</option>
+    <option value="NVDA">NVDA (NVIDIA Corporation)</option>
+    <option value="JPM">JPM (JPMorgan Chase & Co.)</option>
+    <option value="DIS">DIS (Walt Disney Co.)</option>
+    <option value="XOM">XOM (Exxon Mobil Corporation)</option>
+  </select>
+
+  <canvas id="stockChart" width="600" height="400"></canvas>
+
+  <script>
+    const API_KEY = 'LSL7YAJECMSA8667';
+    const select = document.getElementById("stocks");
+    let chart;
+
+    select.addEventListener("change", async () => {
+      const symbol = select.value;
+      const url = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${symbol}&apikey=${API_KEY}`;
+      
+      const res = await fetch(url);
+      const data = await res.json();
+
+      if (!data["Time Series (Daily)"]) {
+        alert("API limit reached or invalid symbol.");
+        return;
+      }
+
+      const timeSeries = data["Time Series (Daily)"];
+      const labels = Object.keys(timeSeries).slice(0, 30).reverse();
+      const prices = labels.map(date => parseFloat(timeSeries[date]["4. close"]));
+
+      const ctx = document.getElementById('stockChart').getContext('2d');
+
+      if (chart) chart.destroy(); // remove previous chart
+
+      chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [{
+            label: `${symbol} Closing Prices (Last 30 Days)`,
+            data: prices,
+            borderColor: 'blue',
+            borderWidth: 2,
+            fill: false,
+            pointRadius: 2
+          }]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            x: { title: { display: true, text: 'Date' } },
+            y: { title: { display: true, text: 'Price (USD)' } }
+          }
+        }
+      });
+    });
+
+    // Load initial chart for default option
+    window.addEventListener("load", () => {
+      select.dispatchEvent(new Event("change"));
+    });
+  </script>
+
+</body>
+</html>
