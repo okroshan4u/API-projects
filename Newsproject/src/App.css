@@ -1,0 +1,20 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Gilroy";
+}
+
+.contianer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.NesCard-container{
+   display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
